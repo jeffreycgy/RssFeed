@@ -5,9 +5,18 @@ import { connect } from 'react-redux'
 import { fetchNews, onPressed } from '../actions/newsAction'
 
 class News extends Component {
+  static navigationOptions = () => ({
+    title: 'BBC Tech News',
+    headerStyle: {
+      backgroundColor: '#192A75'
+    },
+    headerTitleStyle: {
+      color: '#ffffff'
+    }
+  })
+
   componentDidMount() {
     this.props.fetchNews()
-    console.log(typeof this.props.onPressed)
   }
 
   render() {

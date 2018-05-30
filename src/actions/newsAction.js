@@ -2,7 +2,6 @@ import { parseString } from 'xml2js'
 import { FETCH_NEWS, FETCH_DETAILS } from './types'
 
 export const fetchNews = () => dispatch => {
-  console.log('fetching')
   fetch('http://feeds.bbci.co.uk/news/technology/rss.xml')
   .then(res => res.text())
   .then(news => {
