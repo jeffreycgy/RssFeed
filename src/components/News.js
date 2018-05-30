@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { ScrollView, Text, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import { fetchNews } from '../actions/newsAction'
