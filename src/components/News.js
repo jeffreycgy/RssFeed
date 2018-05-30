@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { ScrollView, Text, Image, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
-import { fetchNews } from '../actions/newsAction'
+import { fetchNews, onPressed } from '../actions/newsAction'
 
 class News extends Component {
   componentDidMount() {
     this.props.fetchNews()
+    console.log(typeof this.props.onPressed)
   }
 
   render() {
@@ -20,8 +21,7 @@ class News extends Component {
       <ScrollView>
         {this.props.news.map((item, i) => {
           return (
-            // add onPress function
-            <TouchableOpacity key={i} >
+            <TouchableOpacity key={i} onPress={this.props.onPressed.bind(this, item.link[0])}>
               <Text> {item.title[0]} </Text>
               <Image
                 source={{uri: item['media:thumbnail'][0]['$'].url}}
@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
   news: state.news.items
 })
 
-export default connect(mapStateToProps, { fetchNews })(News)
+export default connect(mapStateToProps, { fetchNews, onPressed })(News)

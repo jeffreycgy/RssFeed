@@ -1,7 +1,8 @@
 import { parseString } from 'xml2js'
-import { FETCH_NEWS } from './types'
+import { FETCH_NEWS, FETCH_DETAILS } from './types'
 
 export const fetchNews = () => dispatch => {
+  console.log('fetching')
   fetch('http://feeds.bbci.co.uk/news/technology/rss.xml')
   .then(res => res.text())
   .then(news => {
@@ -12,5 +13,12 @@ export const fetchNews = () => dispatch => {
         payload: result.rss.channel[0].item
       })
     })
+  })
+}
+
+export const onPressed = (url) => dispatch => {
+  dispatch({
+    type: FETCH_DETAILS,
+    payload: url
   })
 }

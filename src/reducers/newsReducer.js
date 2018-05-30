@@ -1,4 +1,4 @@
-import { FETCH_NEWS } from '../actions/types'
+import { FETCH_NEWS, FETCH_DETAILS } from '../actions/types'
 
 const initialState = {
   items: [],  // an array of rss feed
@@ -11,6 +11,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         items: action.payload
+      }
+    case FETCH_DETAILS:
+      return {
+        ...state,
+        itemUrl: action.payload
       }
     default:
       return state
