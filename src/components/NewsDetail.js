@@ -6,7 +6,7 @@ class NewsDetail extends Component {
   render() {
     const screenWidth = Dimensions.get('window').width
     return (
-      <Webview
+      <WebView
         source={{uri: this.props.url}}
         style={{flex: 1, width: screenWidth}}
       />

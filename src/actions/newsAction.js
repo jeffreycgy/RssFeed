@@ -6,7 +6,7 @@ export const fetchNews = () => dispatch => {
   .then(res => res.text())
   .then(news => {
     parseString(news, (err, result) => {
-      console.log(result.rss.channel[0].item)
+      // console.log(result.rss.channel[0].item)
       dispatch({
         type: FETCH_NEWS,
         payload: result.rss.channel[0].item

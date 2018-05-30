@@ -19,6 +19,11 @@ class News extends Component {
     this.props.fetchNews()
   }
 
+  viewDetails(url) {
+    this.props.onPressed(url)
+    this.props.navigation.navigate('Detail')
+  }
+
   render() {
     if(this.props.news.length === 0) {
       return (
@@ -30,7 +35,7 @@ class News extends Component {
       <ScrollView>
         {this.props.news.map((item, i) => {
           return (
-            <TouchableOpacity key={i} onPress={this.props.onPressed.bind(this, item.link[0])}>
+            <TouchableOpacity key={i} onPress={this.viewDetails.bind(this, item.link[0])}>
               <Text> {item.title[0]} </Text>
               <Image
                 source={{uri: item['media:thumbnail'][0]['$'].url}}
