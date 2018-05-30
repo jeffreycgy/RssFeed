@@ -29,7 +29,11 @@ class News extends Component {
       <ScrollView>
         {this.props.news.map((item, i) => {
           return (
-            <TouchableOpacity key={i} onPress={this.viewDetails.bind(this, item.link[0])}>
+            <TouchableOpacity 
+              key={i} 
+              onPress={this.viewDetails.bind(this, item.link[0])}
+              activeOpacity={0.8}
+            >
               <View style={{marginTop: 10, marginLeft: 14, marginRight: 14, borderColor: '#a6a6a6', borderStyle: 'solid', borderBottomWidth: 1, width: itemWidth, paddingBottom: 20}}>
                 <Text
                   style={{fontSize: 22, color: '#000000', textAlign: 'justify', marginBottom: 8}}
