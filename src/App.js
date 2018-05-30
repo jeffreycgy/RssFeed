@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import { Provider } from 'react-redux'
-import { createStackNavigator } from 'react-navigation'
+import { Provider, connect } from 'react-redux'
 
 import store from './store'
-import News from './components/News'
-import NewsDetail from './components/NewsDetail'
+import MainNavigator from './config/routes'
+import { createNavigationPropConstructor, initializeListeners } from 'react-navigation-redux-helpers';
+
+const navigationPropConstructor = createNavigationPropConstructor('root')
+
+class NavApp extends Component {
+  componentDidMount() {
+    initializeListeners('root', this.props.nav)
+  }
+  
+  render() {
+    const navigation = navigationPropConstructor(
+      this.props.dispatch,
+      this.props.nav
+    )
+    return <MainNavigator navigation={navigation} />
+  }
+}
+
+const mapStateToProps = (state) => ({
+  nav: state.nav
+})
+
+const AppWithNavigationState = connect(mapStateToProps)(NavApp)
 
 export default class App extends Component {
   render() {
-    const MainNavigator = createStackNavigator({
-      Main: { screen: News },
-      Detail: { screen: NewsDetail }
-    })
-
     return (
       <Provider store={store}>
-        <MainNavigator />
+        <AppWithNavigationState />
+        {/* <MainNavigator /> */}
         {/* <View style={styles.container}>
           <Text style={styles.welcome}>
             BBC News | Tech
