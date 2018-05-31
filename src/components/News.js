@@ -21,7 +21,7 @@ class News extends Component {
   render() {
     if(this.props.news.length === 0) {
       return (
-        <Text> Loading... </Text>
+        <Text style={{alignSelf: 'center', fontSize: 24, marginVertical: 200}}> Loading... </Text>
       )
     }
     const itemWidth = Dimensions.get('window').width - 30
