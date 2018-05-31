@@ -6,6 +6,8 @@ import store from './store'
 import MainNavigator from './config/routes'
 import { createNavigationPropConstructor, initializeListeners } from 'react-navigation-redux-helpers';
 
+console.disableYellowBox = true
+
 const navigationPropConstructor = createNavigationPropConstructor('root')
 
 class NavApp extends Component {
