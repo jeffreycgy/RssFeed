@@ -3,7 +3,7 @@ import { ScrollView, Text, Image, TouchableOpacity, View, Dimensions, RefreshCon
 import { connect } from 'react-redux'
 import { SearchBar } from 'react-native-elements'
 
-import { fetchNews, onPressed, setRefreshing } from '../actions/newsAction'
+import { fetchNews, onPressed, setRefreshing, searchNews, copyNews } from '../actions/newsAction'
 
 class News extends Component {
   static navigationOptions = () => ({
@@ -24,6 +24,13 @@ class News extends Component {
     this.props.fetchNews()
   }
 
+  inputChange(e) {
+    if(e === '') {
+      this.props.fetchNews()
+    }
+    this.props.searchNews(e, this.props.news)
+  }
+
   render() {
     if(this.props.news.length === 0) {
       return (
@@ -37,6 +44,7 @@ class News extends Component {
           round
           searchIcon={{ size: 24}}
           placeholder='Search title'
+          onChangeText={this.inputChange.bind(this)}
         />
         <ScrollView
           refreshControl={
@@ -46,7 +54,7 @@ class News extends Component {
             />
           }
         >
-          {this.props.news.map((item, i) => {
+          {this.props.searchResult.map((item, i) => {
             return (
               <TouchableOpacity 
                 key={i} 
@@ -77,7 +85,8 @@ class News extends Component {
 
 const mapStateToProps = state => ({
   news: state.news.items,
-  isRefreshing: state.news.isRefreshing
+  isRefreshing: state.news.isRefreshing,
+  searchResult: state.news.searchResult
 })
 
-export default connect(mapStateToProps, { fetchNews, onPressed, setRefreshing })(News)
+export default connect(mapStateToProps, { fetchNews, onPressed, setRefreshing, searchNews, copyNews })(News)

@@ -1,9 +1,10 @@
-import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH } from '../actions/types'
+import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH, SEARCH_NEWS, COPY_NEWS } from '../actions/types'
 
 const initialState = {
   items: [],  // an array of rss feed
   itemUrl: '', // selected rss news link
-  isRefreshing: false
+  isRefreshing: false,
+  searchResult: []
 }
 
 export default function(state = initialState, action) {
@@ -22,6 +23,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isRefreshing: action.payload
+      }
+    case SEARCH_NEWS:
+      return {
+        ...state,
+        searchResult: action.payload
+      }
+    case COPY_NEWS:
+      return {
+        ...state,
+        searchResult: action.payload
       }
     default:
       return state

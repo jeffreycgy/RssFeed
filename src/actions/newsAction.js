@@ -1,5 +1,5 @@
 import { parseString } from 'xml2js'
-import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH } from './types'
+import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH, SEARCH_NEWS, COPY_NEWS } from './types'
 
 export const fetchNews = () => dispatch => {
   fetch('http://feeds.bbci.co.uk/news/technology/rss.xml')
@@ -12,6 +12,7 @@ export const fetchNews = () => dispatch => {
         payload: result.rss.channel[0].item
       })
       dispatch(setRefreshing(false))
+      dispatch(copyNews(result.rss.channel[0].item))
     })
   })
 }
@@ -28,4 +29,24 @@ export const setRefreshing = (bool) => {
     type: SET_REFRESH,
     payload: bool
   }
+}
+
+export const copyNews = (data) => dispatch => {
+  dispatch({
+    type: COPY_NEWS,
+    payload: data
+  })
+}
+
+export const searchNews = (query, data) => dispatch => {
+  const filtered = []
+  data.map((item) => {
+    if(item.title[0].toLowerCase().includes(query.toLowerCase())) {
+      filtered.push(item)
+    }
+  })
+  dispatch({
+    type: SEARCH_NEWS,
+    payload: filtered
+  })
 }
