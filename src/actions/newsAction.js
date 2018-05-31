@@ -1,5 +1,6 @@
 import { parseString } from 'xml2js'
 import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH, SEARCH_NEWS, COPY_NEWS } from './types'
+import { List } from 'immutable'
 
 export const fetchNews = () => dispatch => {
   fetch('http://feeds.bbci.co.uk/news/technology/rss.xml')
@@ -47,6 +48,6 @@ export const searchNews = (query, data) => dispatch => {
   })
   dispatch({
     type: SEARCH_NEWS,
-    payload: filtered
+    payload: List(filtered)
   })
 }

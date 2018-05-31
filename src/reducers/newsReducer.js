@@ -1,10 +1,11 @@
 import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH, SEARCH_NEWS, COPY_NEWS } from '../actions/types'
+import { List } from 'immutable'
 
 const initialState = {
-  items: [],  // an array of rss feed
+  items: List([]),  // an array of rss feed
   itemUrl: '', // selected rss news link
   isRefreshing: false,
-  searchResult: []
+  searchResult: List([])
 }
 
 export default function(state = initialState, action) {
