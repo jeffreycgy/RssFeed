@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, Image, TouchableOpacity, View, Dimensions } from 'react-native'
+import { ScrollView, Text, Image, TouchableOpacity, View, Dimensions, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
 
-import { fetchNews, onPressed } from '../actions/newsAction'
+import { fetchNews, onPressed, setRefreshing } from '../actions/newsAction'
 
 class News extends Component {
   static navigationOptions = () => ({
@@ -18,6 +18,11 @@ class News extends Component {
     this.props.navigation.navigate('Detail')
   }
 
+  refreshNews() {
+    this.props.setRefreshing(true)
+    this.props.fetchNews()
+  }
+
   render() {
     if(this.props.news.length === 0) {
       return (
@@ -26,7 +31,14 @@ class News extends Component {
     }
     const itemWidth = Dimensions.get('window').width - 30
     return (
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.isRefreshing}
+            onRefresh={this.refreshNews.bind(this)}
+          />
+        }
+      >
         {this.props.news.map((item, i) => {
           return (
             <TouchableOpacity 
@@ -55,7 +67,8 @@ class News extends Component {
 }
 
 const mapStateToProps = state => ({
-  news: state.news.items
+  news: state.news.items,
+  isRefreshing: state.news.isRefreshing
 })
 
-export default connect(mapStateToProps, { fetchNews, onPressed })(News)
+export default connect(mapStateToProps, { fetchNews, onPressed, setRefreshing })(News)

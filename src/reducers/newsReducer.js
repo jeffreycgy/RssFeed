@@ -1,8 +1,9 @@
-import { FETCH_NEWS, FETCH_DETAILS } from '../actions/types'
+import { FETCH_NEWS, FETCH_DETAILS, SET_REFRESH } from '../actions/types'
 
 const initialState = {
   items: [],  // an array of rss feed
-  itemUrl: '' // selected rss news link
+  itemUrl: '', // selected rss news link
+  isRefreshing: false
 }
 
 export default function(state = initialState, action) {
@@ -16,6 +17,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         itemUrl: action.payload
+      }
+    case SET_REFRESH:
+      return {
+        ...state,
+        isRefreshing: action.payload
       }
     default:
       return state
